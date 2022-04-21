@@ -4,9 +4,9 @@ while fizzbuzz < 20
   if fizzbuzz % (3*5) == 0
     puts 'FizzBuzz'
   elsif fizzbuzz % 3 == 0
-    puts "Fizz"
+    puts 'Fizz'
   elsif fizzbuzz % 5 == 0
-    puts "Buzz"
+    puts 'Buzz'
   else
     puts fizzbuzz
   end
