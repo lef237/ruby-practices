@@ -17,19 +17,15 @@ frames = shots.each_slice(2).to_a
 
 point = 0
 frames.each.with_index(1) do |frame, count|
+  point += frame.sum
   if frame[0] == 10 && count < 10
-    point += 10
     point += if frames[count][0] == 10
                10 + frames[count + 1][0]
              else
                frames[count][0] + frames[count][1]
              end
   elsif frame.sum == 10 && count < 10
-    point += 10 + frames[count][0]
-  elsif count >= 10
-    point += frame.sum
-  else
-    point += frame.sum
+    point += frames[count][0]
   end
 end
 puts point
