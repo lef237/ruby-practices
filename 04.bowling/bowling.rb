@@ -22,7 +22,7 @@ frames.each.with_index(1) do |frame, count|
     point += if frames[count][0] == 10
                10 + frames[count + 1][0]
              else
-               frames[count][0] + frames[count][1]
+               frames[count].sum
              end
   elsif frame.sum == 10 && count < 10
     point += frames[count][0]
