@@ -32,12 +32,16 @@ def print_array
     end
   end
 
-  def length_for_longest_directory(array)
-    array.max_by(&:length).length + 2
-  end
+  # def length_for_longest_directory(array)
+  #   array.max_by(&:length).length + 2
+  # end
+
+  length_for_longest_directory = lambda { |any_array|
+    any_array.max_by(&:length).length + 2
+  }
 
   one_dimension_array = two_dimensions_array.flatten
-  for_ljust = length_for_longest_directory(one_dimension_array)
+  for_ljust = length_for_longest_directory.call(one_dimension_array)
 
   print_count = 0
   one_dimension_array.each do |y|
