@@ -10,16 +10,13 @@ def receive_data_and_create_array
 
     array << item
   end
-  array
-end
 
-def print_array
-  array = receive_data_and_create_array
   array_size = array.size
   column = COLUMN
   row = (array_size.to_f / column).ceil
   two_dimensions_array = Array.new(row).map { Array.new(column, '') }
 
+  # 縦と横を入れ替えて２次元配列に代入します
   row_count = 0
   column_count = 0
   array.each do |x|
@@ -30,10 +27,15 @@ def print_array
       column_count += 1
     end
   end
+  two_dimensions_array # returnの値
+end
 
-  # defでメソッド定義をするとnest状態となりrubocopに引っ掛かるため、lambdaを使いました。
-  adjust_width_for_longest_directory = lambda { |any_array|
-    any_array.max_by(&:length).length + 2
+def print_array
+  two_dimensions_array = receive_data_and_create_array
+
+  # defでメソッド定義をするとnest状態となりrubocopに引っ掛かるため、lambdaを使いました
+  adjust_width_for_longest_directory = lambda { |array|
+    array.max_by(&:length).length + 2
   }
 
   one_dimension_array = two_dimensions_array.flatten
