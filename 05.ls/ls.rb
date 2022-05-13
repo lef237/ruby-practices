@@ -10,7 +10,6 @@ def receive_data_and_create_array
 
     array << item
   end
-  # return array
   array
 end
 
@@ -32,16 +31,13 @@ def print_array
     end
   end
 
-  # def length_for_longest_directory(array)
-  #   array.max_by(&:length).length + 2
-  # end
-
-  length_for_longest_directory = lambda { |any_array|
+  # defでメソッド定義をするとnest状態となりrubocopに引っ掛かるため、lambdaを使いました。
+  adjust_width_for_longest_directory = lambda { |any_array|
     any_array.max_by(&:length).length + 2
   }
 
   one_dimension_array = two_dimensions_array.flatten
-  for_ljust = length_for_longest_directory.call(one_dimension_array)
+  for_ljust = adjust_width_for_longest_directory.call(one_dimension_array)
 
   print_count = 0
   one_dimension_array.each do |y|
