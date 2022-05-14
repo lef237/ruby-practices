@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-COLUMN = 3
-
 def receive_data
   list = []
   Dir.foreach('.') do |item|
@@ -13,19 +11,30 @@ def receive_data
   list
 end
 
+COLUMN = 3
+ROW = (receive_data.size.to_f / COLUMN).ceil
+
 def formatted_list(list)
-  column = COLUMN
-  row = (list.size.to_f / column).ceil
-  list << "" until list.size % column == 0
-  list = list.each_slice(row).to_a.transpose.flatten
+  list << "" until list.size % COLUMN == 0
+  list = list.each_slice(ROW).to_a.transpose.flatten
   list
 end
 
-def print_list(list)
-  for_ljust = list.max_by(&:length).length + 2
+# ファイル名の幅を調節するためのメソッドです
+def for_ljust
+  list = receive_data.each_slice(ROW).to_a
+  for_ljust = []
+  list.each do |array|
+    for_ljust << array.max_by(&:length).length + 2
+  end
+  for_ljust
+end
 
+# 列ごとに幅を調節して出力しています
+def print_list(list)
   list.each_with_index do |item, i|
-    print item.ljust(for_ljust)
+    j = i % COLUMN
+    print item.ljust(for_ljust[j])
     i += 1
     print "\n" if (i % COLUMN).zero?
   end
