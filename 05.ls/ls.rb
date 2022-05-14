@@ -30,25 +30,25 @@ def for_ljust
   for_ljust
 end
 
-# 列ごとに幅を調節して出力しています
-def print_list(list)
-  list.each do |array|
-    array.each_with_index do |item, i|
-      print item.ljust(for_ljust[i])
-    end
-    print "\n"
-  end
-end
-
-# # 列ごとに幅を調節して出力しています（別解）
+# # 列ごとに幅を調節して出力しています
 # def print_list(list)
-#   list.flatten.each_with_index do |item, i|
-#     j = i % COLUMN
-#     print item.ljust(for_ljust[j])
-#     i += 1
-#     print "\n" if (i % COLUMN).zero?
+#   list.each do |array|
+#     array.each_with_index do |item, i|
+#       print item.ljust(for_ljust[i])
+#     end
+#     print "\n"
 #   end
 # end
+
+# 列ごとに幅を調節して出力しています（別解）
+def print_list(list)
+  list.flatten.each_with_index do |item, i|
+    j = i % COLUMN
+    print item.ljust(for_ljust[j])
+    i += 1
+    print "\n" if (i % COLUMN).zero?
+  end
+end
 
 list = receive_data
 list = formatted_list(list)
