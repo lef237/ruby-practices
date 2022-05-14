@@ -15,9 +15,8 @@ COLUMN = 3
 ROW = (receive_data.size.to_f / COLUMN).ceil
 
 def formatted_list(list)
-  list << "" until list.size % COLUMN == 0
-  list = list.each_slice(ROW).to_a.transpose 
-  list
+  list << '' until (list.size % COLUMN).zero?
+  list.each_slice(ROW).to_a.transpose
 end
 
 # 列ごとに幅を調節するためのメソッドです
