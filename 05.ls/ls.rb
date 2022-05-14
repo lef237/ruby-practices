@@ -3,7 +3,7 @@
 
 COLUMN = 3
 
-def receive_data_and_create_array
+def receive_lists_and_create_array
   array = []
   Dir.foreach('.') do |item|
     next if ['.', '..'].include?(item)
@@ -11,27 +11,15 @@ def receive_data_and_create_array
     array << item
   end
 
-  array_size = array.size
   column = COLUMN
-  row = (array_size.to_f / column).ceil
-  two_dimensions_array = Array.new(row).map { Array.new(column, '') }
-
-  # 縦と横を入れ替えて２次元配列に代入します
-  row_count = 0
-  column_count = 0
-  array.each do |x|
-    two_dimensions_array[row_count][column_count] = x
-    row_count += 1
-    if row == row_count
-      row_count = 0
-      column_count += 1
-    end
-  end
-  two_dimensions_array # returnの値
+  row = (array.size.to_f / column).ceil
+  array << "" until array.size % column == 0
+  array = array.each_slice(row).to_a.transpose
+  array
 end
 
 def print_array
-  two_dimensions_array = receive_data_and_create_array
+  two_dimensions_array = receive_lists_and_create_array
 
   # defでメソッド定義をするとnest状態となりrubocopに引っ掛かるため、lambdaを使いました
   adjust_width_for_longest_directory = lambda { |array|
