@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-def files_in_current_directory
+def receive_files_in_current_directory
   files = []
   Dir.foreach('.') do |item|
     next if ['.', '..'].include?(item)
@@ -30,7 +30,7 @@ def print_files(files)
 end
 
 COLUMN = 3
-ROW = (files_in_current_directory.size.to_f / COLUMN).ceil
+ROW = (receive_files_in_current_directory.size.to_f / COLUMN).ceil
 
-formatted_files = format_files(files_in_current_directory)
+formatted_files = format_files(receive_files_in_current_directory)
 print_files(formatted_files)
