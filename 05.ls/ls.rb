@@ -29,8 +29,8 @@ def print_files(files)
   end
 end
 
+files = receive_files_in_current_directory
 COLUMN = 3
-ROW = (receive_files_in_current_directory.size.to_f / COLUMN).ceil
-
-formatted_files = format_files(receive_files_in_current_directory)
+ROW = (files.size.to_f / COLUMN).ceil
+formatted_files = format_files(files)
 print_files(formatted_files)
