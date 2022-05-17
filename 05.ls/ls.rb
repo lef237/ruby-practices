@@ -8,7 +8,6 @@ def receive_files_in_current_directory
   if options['a']
     files = []
     Dir.foreach('.') do |item|
-          
       files << item
     end
   else
