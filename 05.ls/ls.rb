@@ -1,12 +1,18 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-def receive_files_in_current_directory
-  files = []
-  Dir.foreach('.') do |item|
-    next if ['.', '..'].include?(item)
+require 'optparse'
 
-    files << item
+def receive_files_in_current_directory
+  options = ARGV.getopts('a')
+  if options['a']
+    files = []
+    Dir.foreach('.') do |item|
+          
+      files << item
+    end
+  else
+    files = Dir.glob('*')
   end
   files
 end
