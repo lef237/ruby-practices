@@ -3,9 +3,17 @@
 
 require 'optparse'
 
+def lscommand_options
+  opt = OptionParser.new
+  params = {}
+  opt.on('-a') { |v| params[:a] = v }
+  opt.parse!(ARGV)
+  params
+end
+
 def receive_files_in_current_directory
-  options = ARGV.getopts('a')
-  if options['a']
+  params = lscommand_options
+  if params[:a]
     files = []
     Dir.foreach('.') do |item|
       files << item
