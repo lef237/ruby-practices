@@ -3,7 +3,7 @@
 
 require 'optparse'
 
-def lscommand_options
+def receive_options
   opt = OptionParser.new
   params = {}
   opt.on('-a') { |v| params[:a] = v }
@@ -11,9 +11,8 @@ def lscommand_options
   params
 end
 
-def receive_files_in_current_directory
-  params = lscommand_options
-  if params[:a]
+def receive_files_in_current_directory(options)
+  if options[:a]
     files = []
     Dir.foreach('.') do |item|
       files << item
@@ -42,7 +41,8 @@ def print_files(files)
   end
 end
 
-files = receive_files_in_current_directory
+options = receive_options
+files = receive_files_in_current_directory(options)
 COLUMN = 3
 ROW = (files.size.to_f / COLUMN).ceil
 formatted_files = format_files(files)
