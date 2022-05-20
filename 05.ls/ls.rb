@@ -4,13 +4,16 @@
 require 'optparse'
 
 def receive_options
-  opt = OptionParser.new
-  opt.on('-a') { |v| @option_a = v }
-  opt.parse!(ARGV)
+  option_parser = OptionParser.new
+  options = {}
+  option_parser.on('-a') { |v| options[:all] = v }
+  option_parser.parse!(ARGV)
+  options
 end
 
-def receive_files_in_current_directory
-  if @option_a
+def receive_files_in_current_directory(options)
+  p options #=>{:receive_all_files=>true}になっている。
+  if options[:receive_all_files]
     files = []
     Dir.foreach('.') do |item|
       files << item
@@ -39,8 +42,8 @@ def print_files(files)
   end
 end
 
-receive_options
-files = receive_files_in_current_directory
+options = receive_options
+files = receive_files_in_current_directory(receive_all_files: options[:all])
 COLUMN = 3
 ROW = (files.size.to_f / COLUMN).ceil
 formatted_files = format_files(files)
