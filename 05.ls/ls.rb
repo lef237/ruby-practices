@@ -43,7 +43,7 @@ def print_files(files)
 end
 
 options = receive_options
-files = receive_files_in_current_directory(receive_all_files: options[:all])
+files = receive_files_in_current_directory(receive_all_files: options[:all]) #ここでreceive_all_files: trueになっている
 COLUMN = 3
 ROW = (files.size.to_f / COLUMN).ceil
 formatted_files = format_files(files)
