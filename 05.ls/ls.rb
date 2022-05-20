@@ -12,7 +12,6 @@ def receive_options
 end
 
 def receive_files_in_current_directory(options)
-  p options #=>{:receive_all_files=>true}になっている。
   if options[:receive_all_files]
     files = []
     Dir.foreach('.') do |item|
@@ -43,7 +42,7 @@ def print_files(files)
 end
 
 options = receive_options
-files = receive_files_in_current_directory(receive_all_files: options[:all]) #ここでreceive_all_files: trueになっている
+files = receive_files_in_current_directory(receive_all_files: options[:all])
 COLUMN = 3
 ROW = (files.size.to_f / COLUMN).ceil
 formatted_files = format_files(files)
