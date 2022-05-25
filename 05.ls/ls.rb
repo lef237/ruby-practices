@@ -6,20 +6,14 @@ require 'optparse'
 def receive_options
   option_parser = OptionParser.new
   options = {}
-  option_parser.on('-a') { |v| options[:all] = v }
+  option_parser.on('-r') { |v| options[:reverse] = v }
   option_parser.parse!(ARGV)
   options
 end
 
 def receive_files_in_current_directory(options)
-  if options[:receive_all_files]
-    files = []
-    Dir.foreach('.') do |item|
-      files << item
-    end
-  else
-    files = Dir.glob('*')
-  end
+  files = Dir.glob('*')
+  files = files.reverse if options[:reverse_files]
   files
 end
 
@@ -42,7 +36,7 @@ def print_files(files)
 end
 
 options = receive_options
-files = receive_files_in_current_directory(receive_all_files: options[:all])
+files = receive_files_in_current_directory(reverse_files: options[:reverse])
 COLUMN = 3
 ROW = (files.size.to_f / COLUMN).ceil
 formatted_files = format_files(files)
