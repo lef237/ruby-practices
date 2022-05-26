@@ -1,13 +1,19 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-def receive_files_in_current_directory
-  files = []
-  Dir.foreach('.') do |item|
-    next if ['.', '..'].include?(item)
+require 'optparse'
 
-    files << item
-  end
+def receive_options
+  option_parser = OptionParser.new
+  options = {}
+  option_parser.on('-r') { |v| options[:reverse] = v }
+  option_parser.parse!(ARGV)
+  options
+end
+
+def receive_files_in_current_directory(options)
+  files = Dir.glob('*')
+  files = files.reverse if options[:reverse_files]
   files
 end
 
@@ -29,7 +35,8 @@ def print_files(files)
   end
 end
 
-files = receive_files_in_current_directory
+options = receive_options
+files = receive_files_in_current_directory(reverse_files: options[:reverse])
 COLUMN = 3
 ROW = (files.size.to_f / COLUMN).ceil
 formatted_files = format_files(files)
