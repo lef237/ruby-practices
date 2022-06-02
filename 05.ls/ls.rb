@@ -60,7 +60,7 @@ def permission(mode_number)
 end
 
 def print_files_by_option_l(files)
-  files_blocks = files.map { |file| File.stat(file).blocks }.sum
+  files_blocks = files.sum { |item| File.stat(item).blocks }
   puts "total #{files_blocks}"
   files.each do |item|
     file_status = File.stat(item)
