@@ -15,7 +15,10 @@ def receive_options
 end
 
 def receive_files_in_current_directory(options)
-  if options[:all]
+  p options
+  p options[:receive_all_files]
+  p options[:reverse_files]
+  if options[:receive_all_files]
     files = []
     Dir.foreach('.') do |item|
       files << item
@@ -23,13 +26,15 @@ def receive_files_in_current_directory(options)
   else
     files = Dir.glob('*')
   end
-  files = files.reverse if options[:reverse]
+  files = files.reverse if options[:reverse_files]
   files
 end
 
 def format_files(files)
-  files << '' until (files.size % COLUMN).zero?
-  files.each_slice(ROW).to_a.transpose
+  column = 3
+  row = (files.size.to_f / column).ceil
+  files << '' until (files.size % row).zero?
+  files.each_slice(row).to_a.transpose
 end
 
 def calc_column_width(files, index)
@@ -37,6 +42,7 @@ def calc_column_width(files, index)
 end
 
 def print_files(files)
+  files = format_files(files)
   files.each do |array|
     array.each_with_index do |item, i|
       print item.ljust(calc_column_width(files, i))
@@ -89,13 +95,10 @@ def print_files_by_option_l(files)
 end
 
 options = receive_options
-files = receive_files_in_current_directory(options)
-COLUMN = 3
-ROW = (files.size.to_f / COLUMN).ceil
+files = receive_files_in_current_directory(receive_all_files: options[:all], reverse_files: options[:reverse])
 
 if options[:list]
   print_files_by_option_l(files)
 else
-  formatted_files = format_files(files)
-  print_files(formatted_files)
+  print_files(files)
 end
