@@ -14,8 +14,8 @@ def receive_options
   options
 end
 
-def receive_files_in_current_directory(options)
-  if options[:receive_all_files]
+def receive_files_in_current_directory(options_all, options_reverse)
+  if options_all
     files = []
     Dir.foreach('.') do |item|
       files << item
@@ -23,13 +23,14 @@ def receive_files_in_current_directory(options)
   else
     files = Dir.glob('*')
   end
-  files = files.reverse if options[:reverse_files]
+  files = files.reverse if options_reverse
   files
 end
 
+COLUMN = 3
+
 def format_files(files)
-  column = 3
-  row = (files.size.to_f / column).ceil
+  row = (files.size.to_f / COLUMN).ceil
   files << '' until (files.size % row).zero?
   files.each_slice(row).to_a.transpose
 end
@@ -92,7 +93,7 @@ def print_details(files)
 end
 
 options = receive_options
-files = receive_files_in_current_directory(receive_all_files: options[:all], reverse_files: options[:reverse])
+files = receive_files_in_current_directory(options[:all], options[:reverse])
 
 if options[:list]
   print_details(files)
