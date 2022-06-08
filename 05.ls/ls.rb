@@ -15,9 +15,6 @@ def receive_options
 end
 
 def receive_files_in_current_directory(options)
-  p options
-  p options[:receive_all_files]
-  p options[:reverse_files]
   if options[:receive_all_files]
     files = []
     Dir.foreach('.') do |item|
@@ -76,7 +73,7 @@ def permission(mode_number)
   }[mode_number]
 end
 
-def print_files_by_option_l(files)
+def print_details(files)
   files_blocks = files.sum { |item| File.stat(item).blocks }
   puts "total #{files_blocks}"
   files.each do |item|
@@ -98,7 +95,7 @@ options = receive_options
 files = receive_files_in_current_directory(receive_all_files: options[:all], reverse_files: options[:reverse])
 
 if options[:list]
-  print_files_by_option_l(files)
+  print_details(files)
 else
   print_files(files)
 end
