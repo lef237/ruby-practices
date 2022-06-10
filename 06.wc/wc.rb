@@ -1,60 +1,64 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
+
+
+
+def wc_normal(files)
+  if files != []
+    total_lines = 0
+    total_words = 0
+    total_bytes = 0
+    files.each_with_index do |file_name, index|
+      file_data = File.open(file_name).read
+      lines = file_data.count("\n")
+      words = file_data.scan(/\w+/).size
+      bytes = file_data.size
+      puts "#{lines.to_s.rjust(5)} #{words.to_s.rjust(5)} #{bytes.to_s.rjust(5)} #{file_name}"
+      total_lines += lines
+      total_words += words
+      total_bytes += bytes
+      if index == files.size - 1 and files.size > 1
+          puts "#{total_lines.to_s.rjust(5)} #{total_words.to_s.rjust(5)} #{total_bytes.to_s.rjust(5)} total"
+      end
+    end
+  else
+    stdin_data  = $stdin.read
+    lines = stdin_data.count("\n")
+    words = stdin_data.scan(/\w+/).size
+    bytes = stdin_data.size
+    puts "#{lines.to_s.rjust(5)} #{words.to_s.rjust(5)} #{bytes.to_s.rjust(5)}"
+  end
+end
+
+def wc_l_option(files)
+  if files != []
+    total_lines = 0
+    files.each_with_index do |file_name, index|
+      file_data = File.open(file_name).read
+      lines = file_data.count("\n")
+      puts "#{lines.to_s.rjust(5)} #{file_name}"
+      total_lines += lines
+      if index == files.size - 1 and files.size > 1
+          puts "#{total_lines.to_s.rjust(5)} total"
+      end
+    end
+  else
+    stdin_data  = $stdin.read
+    lines = stdin_data.count("\n")
+    puts "#{lines.to_s.rjust(5)}"
+  end
+end
+
+opt = OptionParser.new
+params = {}
+opt.on('-l') {|v| params[:l] = v }
+opt.parse!(ARGV)
 files = ARGV
 
-p files
-p files.size
-
-hoge = $stdin.read
-
-p hoge
-
-fuga = $stdin.readlines(nil)
-
-p fuga
-
-line = gets
-p line
-
-#=> ここでfiles.sizeとかでコマンドライン引数の数を数えておけば、あとでeachで回せそう？
-
-# files each_with_index do 
-
-# end
-total_lines = 0
-total_words = 0
-total_bytes = 0
-
-files.each_with_index do |file_name, index|
-  p file_name
-
-# files[0]をまずは表示する
-# ファイルデータ
-
-
-  file_data = File.open(file_name).read
-  p file_data
-  # 行数
-  lines = file_data.count("\n")
-
-  # 単語数
-  words = file_data.scan(/\w+/).size
-  p words
-
-  # バイト数
-  bytes = file_data.size
-
-  p "#{lines} #{words} #{bytes} #{file_name}"
-
-  p lines
-
-  total_lines += lines
-  total_words += words
-  total_bytes += bytes
-  p total_lines
-
-  if index = files.size - 1
-      p "#{total_lines} #{total_words} #{total_bytes} total"
-  end
-
+if params[:l]
+  wc_l_option(files)
+else
+  wc_normal(files)
 end
+
