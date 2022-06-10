@@ -38,7 +38,7 @@ end
 def show_stdin
   stdin_data = $stdin.read
   lines = stdin_data.count("\n")
-  words = stdin_data.scan(/\w+/).size
+  words = stdin_data.scan(/\s+/).size
   bytes = stdin_data.size
   puts "#{lines.to_s.rjust(5)} #{words.to_s.rjust(5)} #{bytes.to_s.rjust(5)}"
 end
