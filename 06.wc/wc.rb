@@ -5,7 +5,22 @@ files = ARGV
 p files
 p files.size
 
+hoge = $stdin.read
 
+p hoge
+
+fuga = $stdin.readlines(nil)
+
+p fuga
+
+line = gets
+p line
+
+#=> ここでfiles.sizeとかでコマンドライン引数の数を数えておけば、あとでeachで回せそう？
+
+# files each_with_index do 
+
+# end
 total_lines = 0
 total_words = 0
 total_bytes = 0
