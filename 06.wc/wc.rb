@@ -3,6 +3,21 @@
 
 require 'optparse'
 
+def main
+  opt = OptionParser.new
+  params = {}
+  opt.on('-l') { |v| params[:l] = v }
+  opt.parse!(ARGV)
+  files = ARGV
+  if params[:l]
+    wc_l_option(files)
+  elsif files != []
+    wc_normal(files)
+  else
+    wc_normal_stdin
+  end
+end
+
 def wc_normal(files)
   total_lines = 0
   total_words = 0
@@ -42,21 +57,6 @@ def wc_l_option(files)
     stdin_data = $stdin.read
     lines = stdin_data.count("\n")
     puts lines.to_s.rjust(5).to_s
-  end
-end
-
-def main
-  opt = OptionParser.new
-  params = {}
-  opt.on('-l') { |v| params[:l] = v }
-  opt.parse!(ARGV)
-  files = ARGV
-  if params[:l]
-    wc_l_option(files)
-  elsif files != []
-    wc_normal(files)
-  else
-    wc_normal_stdin
   end
 end
 
