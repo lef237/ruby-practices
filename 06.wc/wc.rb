@@ -6,19 +6,19 @@ require 'optparse'
 def main
   opt = OptionParser.new
   params = {}
-  opt.on('-l') { |v| params[:l] = v }
+  opt.on('-l') { |v| params[:lines] = v }
   opt.parse!(ARGV)
   files = ARGV
-  if params[:l]
-    wc_l_option(files)
+  if params[:lines]
+    show_lines(files)
   elsif files != []
-    wc_normal(files)
+    show_files(files)
   else
-    wc_normal_stdin
+    show_stdin
   end
 end
 
-def wc_normal(files)
+def show_files(files)
   total_lines = 0
   total_words = 0
   total_bytes = 0
@@ -35,7 +35,7 @@ def wc_normal(files)
   end
 end
 
-def wc_normal_stdin
+def show_stdin
   stdin_data = $stdin.read
   lines = stdin_data.count("\n")
   words = stdin_data.scan(/\w+/).size
@@ -43,7 +43,7 @@ def wc_normal_stdin
   puts "#{lines.to_s.rjust(5)} #{words.to_s.rjust(5)} #{bytes.to_s.rjust(5)}"
 end
 
-def wc_l_option(files)
+def show_lines(files)
   if files != []
     total_lines = 0
     files.each_with_index do |file_name, index|
