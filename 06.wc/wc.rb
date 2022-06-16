@@ -10,17 +10,9 @@ def main
   opt.parse!(ARGV)
   files = ARGV
   if params.empty?
-    show_files(files) if files != []
-    show_stdin if files.empty?
+    files != [] ? show_files(files) : show_stdin
   end
   show_lines(files) if params[:lines]
-  # if params[:lines]
-  #   show_lines(files)
-  # elsif files != []
-  #   show_files(files)
-  # else
-  #   show_stdin
-  # end
 end
 
 def show_files(files)
