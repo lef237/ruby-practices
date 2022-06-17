@@ -8,53 +8,46 @@ def main
   params = {}
   opt.on('-l') { |v| params[:lines] = v }
   opt.parse!(ARGV)
-  files = ARGV
-  if params.empty?
-    files != [] ? show_files(files) : show_stdin
-  end
-  show_lines(files) if params[:lines]
+  file_names = ARGV
+  input_contents = file_names != [] ? files_open(file_names) : [$stdin.read]
+  show_files(input_contents, file_names) if params.empty?
+  show_lines(input_contents, file_names) if params[:lines]
 end
 
-def show_files(files)
+def files_open(file_names)
+  file_contents = []
+  file_names.each do |file_name|
+    file_contents << File.open(file_name).read
+  end
+  file_contents
+end
+
+def show_files(input_contents, file_names)
   total_lines = 0
   total_words = 0
   total_bytes = 0
-  files.each_with_index do |file_name, index|
-    file_data = File.open(file_name).read
-    lines = file_data.count("\n")
-    words = file_data.scan(/\w+/).size
-    bytes = file_data.size
+  input_contents.each_with_index do |input_content, index|
+    lines = input_content.count("\n")
+    words = file_names ? input_content.scan(/\w+/).size : input_content.scan(/\s+/).size
+    bytes = input_content.size
+    file_name = file_names[index]
     puts "#{lines.to_s.rjust(5)} #{words.to_s.rjust(5)} #{bytes.to_s.rjust(5)} #{file_name}"
     total_lines += lines
     total_words += words
     total_bytes += bytes
-    puts "#{total_lines.to_s.rjust(5)} #{total_words.to_s.rjust(5)} #{total_bytes.to_s.rjust(5)} total" if (index == files.size - 1) && (files.size > 1)
+    puts "#{total_lines.to_s.rjust(5)} #{total_words.to_s.rjust(5)} #{total_bytes.to_s.rjust(5)} total" if (index == input_contents.size - 1) && (input_contents.size > 1)
   end
 end
 
-def show_stdin
-  stdin_data = $stdin.read
-  lines = stdin_data.count("\n")
-  words = stdin_data.scan(/\s+/).size
-  bytes = stdin_data.size
-  puts "#{lines.to_s.rjust(5)} #{words.to_s.rjust(5)} #{bytes.to_s.rjust(5)}"
-end
-
-def show_lines(files)
-  if files != []
+def show_lines(input_contents, file_names)
     total_lines = 0
-    files.each_with_index do |file_name, index|
-      file_data = File.open(file_name).read
-      lines = file_data.count("\n")
+    input_contents.each_with_index do |input_content, index|
+      lines = input_content.count("\n")
+      file_name = file_names[index]
       puts "#{lines.to_s.rjust(5)} #{file_name}"
       total_lines += lines
-      puts "#{total_lines.to_s.rjust(5)} total" if (index == files.size - 1) && (files.size > 1)
+      puts "#{total_lines.to_s.rjust(5)} total" if (index == input_contents.size - 1) && (input_contents.size > 1)
     end
-  else
-    stdin_data = $stdin.read
-    lines = stdin_data.count("\n")
-    puts lines.to_s.rjust(5).to_s
-  end
 end
 
 main
