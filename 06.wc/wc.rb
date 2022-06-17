@@ -31,19 +31,16 @@ def show_files(input_contents, file_names, params)
     bytes = input_content.size
     file_name = file_names[index]
     print "#{lines.to_s.rjust(5)} "
-    print "#{words.to_s.rjust(5)} " if params[:lines] == nil
-    print "#{bytes.to_s.rjust(5)} " if params[:lines] == nil
+    print "#{words.to_s.rjust(5)} #{bytes.to_s.rjust(5)} " if params[:lines].nil?
     print "#{file_name} \n"
-
     total_lines += lines
     total_words += words
     total_bytes += bytes
-    if (index == input_contents.size - 1) && (input_contents.size > 1)
-      print "#{total_lines.to_s.rjust(5)} "
-      print "#{total_words.to_s.rjust(5)} " if params[:lines] == nil
-      print "#{total_bytes.to_s.rjust(5)} " if params[:lines] == nil
-      print "total"
-    end
+    next unless (index == input_contents.size - 1) && (input_contents.size > 1)
+
+    print "#{total_lines.to_s.rjust(5)} "
+    print "#{total_words.to_s.rjust(5)} #{total_bytes.to_s.rjust(5)} " if params[:lines].nil?
+    print 'total'
   end
 end
 
