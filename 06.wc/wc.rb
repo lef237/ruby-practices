@@ -36,8 +36,8 @@ def show_files(input_contents, file_names, params)
     total_lines += lines
     total_words += words
     total_bytes += bytes
-    next unless (index == input_contents.size - 1) && (input_contents.size > 1)
-
+  end
+  if input_contents.size > 1
     print "#{total_lines.to_s.rjust(5)} "
     print "#{total_words.to_s.rjust(5)} #{total_bytes.to_s.rjust(5)} " if params[:lines].nil?
     print 'total'
