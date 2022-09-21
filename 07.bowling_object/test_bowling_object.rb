@@ -17,4 +17,20 @@ class TestBowlingObject < Test::Unit::TestCase
     assert_equal 7, game.score
   end
 
+  def test_frame
+    frame_total_5 = Frame.new('2', '3')
+    assert_equal 5, frame_total_5.score
+
+    frame_spare = Frame.new('3', '7')
+    assert_equal 10, frame_spare.score
+    assert_equal true, frame_spare.spare
+
+    frame_strike = Frame.new('X')
+    assert_equal 10, frame_spare.score
+    assert_equal true, frame_strike.strike
+
+    frame_final = Frame.new('1', '2', '3')
+    assert_equal 6, frame_final.score
+  end
+
 end
