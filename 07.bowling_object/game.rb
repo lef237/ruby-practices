@@ -35,10 +35,10 @@ class Game
     # @frames_instancesにFrameクラスで作成したインスタンスを入れていく
     @frames_instances = []
     frames.each_with_index do |frame, index|
-      if frames[index][0] == 'X'
-        @frames_instances << Frame.new(frames[index][0])
-      elsif frames[index][2] != nil
+      if frames[index][2] != nil #or frames[index][2] == 0
         @frames_instances << Frame.new(frames[index][0], frames[index][1], frames[index][2])
+      elsif frames[index][0] == 'X'
+        @frames_instances << Frame.new(frames[index][0])
       else
         @frames_instances << Frame.new(frames[index][0], frames[index][1])
       end
