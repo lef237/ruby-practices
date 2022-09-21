@@ -2,8 +2,9 @@
 # frozen_string_literal: true
 
 require 'test/unit'
-# require_relative 'bowling_object.rb'
 require_relative 'game.rb'
+require_relative 'frame.rb'
+require_relative 'shot.rb'
 
 class TestBowlingObject < Test::Unit::TestCase
 
@@ -34,8 +35,8 @@ class TestBowlingObject < Test::Unit::TestCase
   end
 
   def test_game
-    game = Game.new("6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,6,4,5")
-    assert_equal 139, game.score
+    game1 = Game.new("6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,6,4,5")
+    assert_equal 139, game1.score
   end
 
 end
