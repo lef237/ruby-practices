@@ -35,22 +35,22 @@ class Frame
   end
 
   def strike
-    return true if @first_shot == 10
+    return true if @first_shot.score == 10
   end
 
   def spare
-   return true if @first_shot != 10 && @first_shot + @second_shot == 10
+    return true if @first_shot.score != 10 && @first_shot.score + @second_shot.score == 10
   end
 
   def score
-    @first_shot + @second_shot + @third_shot
+    @first_shot.score + @second_shot.score + @third_shot.score
   end
 
 end
 
 class Shot
   attr_reader :mark
-  
+
   def initialize(mark)
     @mark = mark
   end
