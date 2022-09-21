@@ -8,13 +8,13 @@ require_relative 'game.rb'
 class TestBowlingObject < Test::Unit::TestCase
 
   def test_shot_X
-    game = Shot.new('X')
-    assert_equal 10, game.score
+    shot = Shot.new('X')
+    assert_equal 10, shot.score
   end
 
   def test_shot_7
-    game = Shot.new('7')
-    assert_equal 7, game.score
+    shot = Shot.new('7')
+    assert_equal 7, shot.score
   end
 
   def test_frame
@@ -31,6 +31,11 @@ class TestBowlingObject < Test::Unit::TestCase
 
     frame_final = Frame.new('1', '2', '3')
     assert_equal 6, frame_final.score
+  end
+
+  def test_game
+    game = Game.new("6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,6,4,5")
+    assert_equal 139, game.score
   end
 
 end
