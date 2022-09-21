@@ -32,15 +32,15 @@ class Game
     frames << marks
 
     # framesは[[], [], [], [], [], [],]みたいな形になっているはず
-    # @frames_framesにFrameクラスで作成したインスタンスを入れていく
-    @frames_frames = []
+    # @frames_instancesにFrameクラスで作成したインスタンスを入れていく
+    @frames_instances = []
     frames.each_with_index do |frame, index|
       if frames[index][0] == 'X'
-        @frames_frames << Frame.new(frames[index][0])
+        @frames_instances << Frame.new(frames[index][0])
       elsif frames[index][2] != nil
-        @frames_frames << Frame.new(frames[index][0], frames[index][1], frames[index][2])
+        @frames_instances << Frame.new(frames[index][0], frames[index][1], frames[index][2])
       else
-        @frames_frames << Frame.new(frames[index][0], frames[index][1])
+        @frames_instances << Frame.new(frames[index][0], frames[index][1])
       end
     end
 
@@ -50,19 +50,19 @@ class Game
     @katen = 0
 
     # 加点処理をおこなう
-    @frames_frames.each_with_index do |frame, index|
+    @frames_instances.each_with_index do |frame, index|
       if frame.strike && index < 9 #10投目以外がストライクのとき
         # 次のフレームがストライク以外のとき
-        @katen += @frames_frames[index + 1].first_shot_score + @frames_frames[index + 1].second_shot_score unless @frames_frames[index + 1].strike
+        @katen += @frames_instances[index + 1].first_shot_score + @frames_instances[index + 1].second_shot_score unless @frames_instances[index + 1].strike
         # 次のフレームがストライクのとき
-        @katen += @frames_frames[index + 1].first_shot_score + @frames_frames[index + 2].first_shot_score if @frames_frames[index + 1].strike
+        @katen += @frames_instances[index + 1].first_shot_score + @frames_instances[index + 2].first_shot_score if @frames_instances[index + 1].strike
       elsif frame.spare && index < 9
-        @katen += @frames_frames[index + 1].first_shot_score
+        @katen += @frames_instances[index + 1].first_shot_score
       end
     end
 
     @total_frame_score = 0
-    @frames_frames.each do |frame|
+    @frames_instances.each do |frame|
       @total_frame_score += frame.score
     end
 
