@@ -6,4 +6,4 @@ require_relative 'frame.rb'
 require_relative 'shot.rb'
 
 game = Game.new(ARGV[0])
-puts game.score # => 139
+puts game.score

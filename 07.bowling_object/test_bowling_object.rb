@@ -8,14 +8,12 @@ require_relative 'shot.rb'
 
 class TestBowlingObject < Test::Unit::TestCase
 
-  def test_shot_X
-    shot = Shot.new('X')
-    assert_equal 10, shot.score
-  end
+  def test_shot
+    shot1 = Shot.new('X')
+    assert_equal 10, shot1.score
 
-  def test_shot_7
-    shot = Shot.new('7')
-    assert_equal 7, shot.score
+    shot2 = Shot.new('7')
+    assert_equal 7, shot2.score
   end
 
   def test_frame
@@ -50,12 +48,8 @@ class TestBowlingObject < Test::Unit::TestCase
     game5 = Game.new("6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,1,8")
     assert_equal 144, game5.score
 
-    #9フレーム目がストライクで、最終フレームの一投目がストライクで、最終フレームの３頭目が0のとき
-    game6 = Game.new("6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,X,0")
-    assert_equal 154, game6.score
-
-    game7 = Game.new("X,X,X,X,X,X,X,X,X,X,X,X")
-    assert_equal 300, game7.score
+    game6 = Game.new("X,X,X,X,X,X,X,X,X,X,X,X")
+    assert_equal 300, game6.score
   end
 
 end

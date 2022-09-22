@@ -5,7 +5,7 @@ class Frame
     @first_shot = Shot.new(first_mark)
     @second_shot = Shot.new(second_mark)
     @third_shot = Shot.new(third_mark)
-    @third_mark = third_mark #10投目ではないことを確認するため
+    @third_mark = third_mark
   end
 
   def strike
@@ -31,6 +31,4 @@ class Frame
   def score
     @first_shot.score + @second_shot.score + @third_shot.score
   end
-
 end
-
