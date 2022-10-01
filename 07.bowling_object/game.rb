@@ -27,16 +27,14 @@ class Game
 
   def parse_score_to_frames
     9.times do
-      @frames << if @marks[0] == 'X'
-                   first_mark = @marks.shift
-                   Frame.new(first_mark)
-                 else
-                   first_mark = @marks.shift
-                   second_mark = @marks.shift
-                   Frame.new(first_mark, second_mark)
-                 end
+      first_mark = @marks.shift
+      if first_mark == 'X'
+        @frames << Frame.new(first_mark)
+      else
+        second_mark = @marks.shift
+        @frames << Frame.new(first_mark, second_mark)
+      end
     end
-
     @frames << Frame.new(*@marks)
   end
 
@@ -48,7 +46,7 @@ class Game
     add_strike_points
     add_spare_points
 
-    total_frame_score = @frames.sum { |frame| frame.score }
+    total_frame_score = @frames.sum(&:score)
 
     total_frame_score + @additional_points
   end
