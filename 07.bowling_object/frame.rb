@@ -11,11 +11,11 @@ class Frame
   end
 
   def strike
-    return true if @first_shot.score == 10 && @third_mark.nil?
+    @first_shot.score == 10 && @third_mark.nil?
   end
 
   def spare
-    return true if @first_shot.score != 10 && @first_shot.score + @second_shot.score == 10 && @third_mark.nil?
+    @first_shot.score != 10 && @first_shot.score + @second_shot.score == 10 && @third_mark.nil?
   end
 
   def first_shot_score
