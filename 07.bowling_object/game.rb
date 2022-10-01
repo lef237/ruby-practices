@@ -14,9 +14,7 @@ class Game
     @frames.each_with_index do |frame, index|
       next unless frame.strike && index < 9
 
-      unless @frames[index + 1].strike
-        @additional_points += @frames[index + 1].first_shot_score + @frames[index + 1].second_shot_score
-      end
+      @additional_points += @frames[index + 1].first_shot_score + @frames[index + 1].second_shot_score unless @frames[index + 1].strike
       @additional_points += @frames[index + 1].first_shot_score + @frames[index + 2].first_shot_score if @frames[index + 1].strike
     end
   end
