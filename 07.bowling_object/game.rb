@@ -38,6 +38,11 @@ class Game
     @frames << Frame.new(*@marks)
   end
 
+  def calculate_total_score
+    total_frame_score = @frames.sum(&:score)
+    total_frame_score + @additional_points
+  end
+
   def score
     @frames = []
     parse_score_to_frames
@@ -46,8 +51,6 @@ class Game
     add_strike_points
     add_spare_points
 
-    total_frame_score = @frames.sum(&:score)
-
-    total_frame_score + @additional_points
+    calculate_total_score
   end
 end
