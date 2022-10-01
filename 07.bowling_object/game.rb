@@ -50,10 +50,7 @@ class Game
     add_strike_points
     add_spare_points
 
-    total_frame_score = 0
-    @frames.each do |frame|
-      total_frame_score += frame.score
-    end
+    total_frame_score = @frames.sum { |frame| frame.score }
 
     total_frame_score + @additional_points
   end
