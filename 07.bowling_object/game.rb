@@ -40,17 +40,15 @@ class Game
   end
 
   def score
-    marks = @marks
-
     @frames = []
     9.times do
-      @frames << if marks[0] == 'X'
-                   marks.shift(1)
+      @frames << if @marks[0] == 'X'
+                   @marks.shift(1)
                  else
-                   marks.shift(2)
+                   @marks.shift(2)
                  end
     end
-    @frames << marks
+    @frames << @marks
 
     @frames_instances = []
     make_frames_instances
