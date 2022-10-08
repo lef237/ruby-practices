@@ -4,6 +4,17 @@
 require 'optparse'
 require 'etc'
 
+def main
+  options = receive_options
+  files = receive_files_in_current_directory(options[:all], options[:reverse])
+  
+  if options[:list]
+    print_details(files)
+  else
+    print_files(files)
+  end
+end
+
 def receive_options
   option_parser = OptionParser.new
   options = {}
@@ -92,11 +103,4 @@ def print_details(files)
   end
 end
 
-options = receive_options
-files = receive_files_in_current_directory(options[:all], options[:reverse])
-
-if options[:list]
-  print_details(files)
-else
-  print_files(files)
-end
+main
