@@ -25,14 +25,20 @@ def receive_options
   options
 end
 
+test_argument = false #テストコードではここの引数をtrueにしておく
+condition = test_argument
+file_path = condition ? 'test/sample_files' : '.'
+TARGET_PATHNAME = file_path
+
 def receive_files_in_current_directory(options_all, options_reverse)
   if options_all
+    # files = Dir.glob('*', File::FNM_DOTMATCH, base: TARGET_PATHNAME)では「..」が出力されない
     files = []
-    Dir.foreach('.') do |item|
+    Dir.foreach(TARGET_PATHNAME) do |item|
       files << item
     end
   else
-    files = Dir.glob('*')
+    files = Dir.glob('*', base: TARGET_PATHNAME)
   end
   files = files.reverse if options_reverse
   files
