@@ -1,20 +1,11 @@
 # frozen_string_literal: true
 
 class FilesCollection
-  def initialize(pathname)
-    @options = receive_options[0]
-    @pathname = pathname || receive_options[1] || '.'
+  def initialize(options, pathname)
+    p options
+    @options = options
+    @pathname = pathname
     @files = receive_files_in_current_directory(@options[:all], @options[:reverse], @pathname)
-  end
-
-  def receive_options
-    option_parser = OptionParser.new
-    options = {}
-    option_parser.on('-a') { |v| options[:all] = v }
-    option_parser.on('-r') { |v| options[:reverse] = v }
-    option_parser.on('-l') { |v| options[:long] = v }
-    option_parser.parse!(ARGV)
-    [options, ARGV[0]]
   end
 
   def receive_files_in_current_directory(options_all, options_reverse, pathname)

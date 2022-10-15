@@ -7,7 +7,7 @@ require 'etc'
 def main
   options = receive_options
   files = receive_files_in_current_directory(options[:all], options[:reverse])
-  
+
   if options[:list]
     print_details(files)
   else
