@@ -17,7 +17,7 @@ def receive_options
   option_parser.on('-l') { |v| options[:long] = v }
   option_parser.parse!(ARGV)
   pathname = ARGV[0] || '.'
-  return options, pathname
+  [options, pathname]
 end
 
 main

@@ -11,7 +11,7 @@ class FilesCollection
 
   def output_files
     if @options[:long]
-      long_options = LongOption.new(@files, @pathname).long_output
+      LongOption.new(@files, @pathname).long_output
     else
       normal_output
     end
@@ -20,11 +20,11 @@ class FilesCollection
   private
 
   def receive_files_in_current_directory(options_all, options_reverse, pathname)
-    if options_all
-      files = Dir.foreach(pathname).to_a
-    else
-      files = Dir.glob('*', base: pathname)
-    end
+    files = if options_all
+              Dir.foreach(pathname).to_a
+            else
+              Dir.glob('*', base: pathname)
+            end
     files = files.reverse if options_reverse
     files
   end
@@ -43,7 +43,7 @@ class FilesCollection
 
   def normal_output
     files = format_files(@files)
-    output_sentence = ""
+    output_sentence = ''
     files.each do |array|
       array.each_with_index do |item, i|
         output_sentence += item.ljust(calc_column_width(files, i))

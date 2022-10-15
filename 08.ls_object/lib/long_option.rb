@@ -54,4 +54,3 @@ class LongOption
     }[mode_number]
   end
 end
-
