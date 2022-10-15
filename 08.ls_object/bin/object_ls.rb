@@ -2,9 +2,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
-require 'etc'
-require 'pathname'
-require_relative '../files_collection'
+require_relative '../lib/files_collection'
 
 def main
   options, pathname = receive_options
@@ -18,9 +16,8 @@ def receive_options
   option_parser.on('-r') { |v| options[:reverse] = v }
   option_parser.on('-l') { |v| options[:long] = v }
   option_parser.parse!(ARGV)
-  path = ARGV[0] || '.'
-  # pathname = Pathname(path)
-  return options, path
+  pathname = ARGV[0] || '.'
+  return options, pathname
 end
 
 main

@@ -2,8 +2,7 @@
 # frozen_string_literal: true
 
 require 'test/unit'
-require 'etc'
-require_relative '../files_collection.rb'
+require_relative '../lib/files_collection.rb'
 
 class TEST_OBJECT_LS < Test::Unit::TestCase
 
@@ -41,7 +40,7 @@ class TEST_OBJECT_LS < Test::Unit::TestCase
   def test_object_ls_long
     expected = <<~TEXT
       total 0
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 a
+      -rwxrwxrwx 1 lef237 lef237    0 Oct 16 01:14 a
       -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 bbbbbb
       -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 c
       -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 d
