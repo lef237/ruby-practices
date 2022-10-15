@@ -5,7 +5,6 @@ require 'test/unit'
 require_relative '../lib/files_collection'
 
 class TestObjectLs < Test::Unit::TestCase
-  # 08.la_objectディレクトリをカレントディレクトリにしたままテストをおこなう
   TARGET_PATHNAME = 'test/sample_files'
 
   def test_object_ls
@@ -16,7 +15,6 @@ class TestObjectLs < Test::Unit::TestCase
       d       h#{'          '}
 
     TEXT
-    # ターゲットパスを渡したらそのパスに対してlsコマンドを実行する。空のときはカレントディレクトリでlsコマンドを実行する。
     options = {}
     files_collection = FilesCollection.new(options, TARGET_PATHNAME)
     assert_equal expected, files_collection.output_files
