@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
+require 'etc'
+require 'debug'
 class FilesCollection
   def initialize(options, pathname)
-    p options
     @options = options
     @pathname = pathname
-    @files = receive_files_in_current_directory(@options[:all], @options[:reverse], @pathname)
+    @files = receive_files_in_current_directory(options[:all], options[:reverse], pathname)
   end
 
   def receive_files_in_current_directory(options_all, options_reverse, pathname)
@@ -20,7 +21,7 @@ class FilesCollection
 
   def output_files
     if @options[:long]
-      LongOptions.new(@files).long_output
+      long_options = LongOptions.new(@files, @pathname).long_output
     else
       normal_output
     end
@@ -55,8 +56,9 @@ class FilesCollection
 end
 
 class LongOptions
-  def initialize(files)
+  def initialize(files, pathname)
     @files = files
+    @pathname = pathname
   end
 
   def symbolize_file_type(file_type)
@@ -84,11 +86,16 @@ class LongOptions
     }[mode_number]
   end
 
-  def print_details(files)
-    files_blocks = files.sum { |item| File.stat(item).blocks }
-    puts "total #{files_blocks}"
-    files.each do |item|
-      file_status = File.stat(item)
+  def long_output
+    p @files
+    p @pathname
+    p File::Stat.new(@pathname).blocks
+    # debugger
+
+    files_blocks = @files.sum { |item| File.stat("#{@pathname}/#{item}").blocks }
+    output_sentence = "total #{files_blocks}\n"
+    @files.each do |item|
+      file_status = File.stat("#{@pathname}/#{item}")
       symbolized_file_type = symbolize_file_type(file_status.ftype)
       mode = file_status.mode.to_s(8)[-3..]
       permissions = permission(mode[0]) + permission(mode[1]) + permission(mode[2])
@@ -98,8 +105,9 @@ class LongOptions
       bytesize = file_status.size.to_s.rjust(4)
       timestamp = file_status.mtime.strftime('%b %e %H:%M')
       file_name = item
-      puts "#{symbolized_file_type}#{permissions} #{hardlink} #{user_name} #{group_name} #{bytesize} #{timestamp} #{file_name}"
+      output_sentence += "#{symbolized_file_type}#{permissions} #{hardlink} #{user_name} #{group_name} #{bytesize} #{timestamp} #{file_name}\n"
     end
+    output_sentence
   end
 end
 
