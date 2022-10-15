@@ -9,7 +9,15 @@ class TEST_OBJECT_LS < Test::Unit::TestCase
   TARGET_PATHNAME = 'test/sample_files'
 
   def test_object_ls
-    files_collection = FilesCollection.new(ARGV, TARGET_PATHNAME, test_argument: true)
-    assert_equal expected, files_collection.print_files
+    expected = <<~TEXT.chomp
+      a       e    i     
+      bbbbbb  f    jjjj  
+      c       ggg        
+      d       h          
+      
+    TEXT
+    #ターゲットパスを渡したらそのパスに対してlsコマンドを実行する。空のときはカレントディレクトリでlsコマンドを実行する。
+    files_collection = FilesCollection.new(TARGET_PATHNAME)
+    assert_equal expected, files_collection.output_files
   end
 end
