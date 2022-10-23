@@ -19,7 +19,7 @@ class Format
   private
 
   def long_format
-    files_blocks = @files.sum { |file| File.stat("#{file.pathname}/#{file.filename}").blocks }
+    files_blocks = @files.sum { |file| File.stat("#{file.pathname}/#{file.filename}").blocks } / 2
     render_sentence = "total #{files_blocks}\n"
     @files.each do |file|
       file_status = File.stat("#{file.pathname}/#{file.filename}")
