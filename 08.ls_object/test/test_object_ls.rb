@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'test/unit'
-require_relative '../lib/files_collection'
+require_relative '../lib/list'
 
 class TestObjectLs < Test::Unit::TestCase
   TARGET_PATHNAME = 'test/sample_files'
@@ -15,8 +15,8 @@ class TestObjectLs < Test::Unit::TestCase
       d       h          
     TEXT
     options = {}
-    files_collection = FilesCollection.new(options, TARGET_PATHNAME)
-    assert_equal expected, files_collection.output_files
+    list = List.new(options, TARGET_PATHNAME)
+    assert_equal expected, list.format_files
   end
 
   def test_object_ls_all_reverse

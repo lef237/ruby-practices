@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 require 'optparse'
-require_relative '../lib/files_collection'
+require_relative '../lib/list'
 
 def main
   options, pathname = receive_options
-  puts FilesCollection.new(options, pathname).output_files
+  puts List.new(options, pathname).format_files
 end
 
 def receive_options
