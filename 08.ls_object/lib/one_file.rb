@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class File
+class OneFile
   attr_reader :filename, :pathname
 
   def initialize(filename, pathname)

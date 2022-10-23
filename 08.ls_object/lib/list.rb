@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'file'
+require_relative 'one_file'
 require_relative 'format'
 
 class List
@@ -12,7 +12,7 @@ class List
   def format_files
     filenames = receive_filenames
     files = filenames.map do |filename|
-      File.new(filename, @pathname)
+      OneFile.new(filename, @pathname)
     end
     formatted_files = Format.new(files, @options[:long])
     formatted_files.render
