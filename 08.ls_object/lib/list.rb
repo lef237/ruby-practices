@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'etc'
 require_relative './file'
 require_relative './format'
 
