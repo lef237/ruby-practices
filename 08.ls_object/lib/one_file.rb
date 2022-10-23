@@ -7,4 +7,8 @@ class OneFile
     @filename = filename
     @pathname = pathname
   end
+
+  def status
+    File.stat("#{@pathname}/#{@filename}")
+  end
 end

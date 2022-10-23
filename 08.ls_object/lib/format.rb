@@ -19,10 +19,10 @@ class Format
   private
 
   def long_format
-    files_blocks = @files.sum { |file| File.stat("#{file.pathname}/#{file.filename}").blocks } / 2
+    files_blocks = @files.sum { |file| file.status.blocks } / 2
     render_sentence = "total #{files_blocks}\n"
     @files.each do |file|
-      file_status = File.stat("#{file.pathname}/#{file.filename}")
+      file_status = file.status
       symbolized_file_type = symbolize_file_type(file_status.ftype)
       mode = file_status.mode.to_s(8)[-3..]
       permissions = permission(mode[0]) + permission(mode[1]) + permission(mode[2])
