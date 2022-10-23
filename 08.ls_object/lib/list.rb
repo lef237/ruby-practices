@@ -23,7 +23,7 @@ class List
 
   def receive_filenames
     filenames = if @options[:all]
-                  Dir.foreach(@pathname).to_a
+                  Dir.foreach(@pathname).to_a.sort
                 else
                   Dir.glob('*', base: @pathname)
                 end

@@ -34,17 +34,20 @@ class TestObjectLs < Test::Unit::TestCase
 
   def test_object_ls_long
     expected = <<~TEXT
-      total 0
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 16 01:14 a
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 bbbbbb
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 c
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 d
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 e
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 f
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 ggg
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 h
-      -rwxrwxrwx 1 lef237 lef237    0 Oct 15 21:35 i
-      drwxrwxrwx 1 lef237 lef237 4096 May 15 15:39 jjjj
+      total 24
+      drwxr-xr-x 2 lef237 lef237 4096 May 15 15:39 jjjj
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 i
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 h
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 ggg
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 f
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 e
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 d
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 c
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 bbbbbb
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 a
+      -rw-r--r-- 1 lef237 lef237    0 Oct 23 14:56 .k
+      drwxrwxrwx 3 lef237 lef237 4096 Oct 23 15:04 ..
+      drwxr-xr-x 3 lef237 lef237 4096 Oct 23 15:04 .
     TEXT
     options = { long: true }
     list = List.new(options, TARGET_PATHNAME)
