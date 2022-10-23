@@ -28,8 +28,8 @@ class TestObjectLs < Test::Unit::TestCase
       f     a           
     TEXT
     options = { all: true, reverse: true }
-    files_collection = FilesCollection.new(options, TARGET_PATHNAME)
-    assert_equal expected, files_collection.output_files
+    list = List.new(options, TARGET_PATHNAME)
+    assert_equal expected, list.format_files
   end
 
   def test_object_ls_long
@@ -47,7 +47,7 @@ class TestObjectLs < Test::Unit::TestCase
       drwxrwxrwx 1 lef237 lef237 4096 May 15 15:39 jjjj
     TEXT
     options = { long: true }
-    files_collection = FilesCollection.new(options, TARGET_PATHNAME)
-    assert_equal expected, files_collection.output_files
+    list = List.new(options, TARGET_PATHNAME)
+    assert_equal expected, list.format_files
   end
 end
