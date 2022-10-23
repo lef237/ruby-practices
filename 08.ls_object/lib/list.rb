@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative './file'
-require_relative './format'
+require_relative 'file'
+require_relative 'format'
 
 class List
   def initialize(options, pathname)
