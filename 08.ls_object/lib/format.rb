@@ -63,7 +63,7 @@ class Format
   end
 
   def normal_format
-    filenames = @files.map { |file| file.filename }
+    filenames = @files.map(&:filename)
     filenames = format_filenames(filenames)
     render_sentence = ''
     filenames.each do |array|
