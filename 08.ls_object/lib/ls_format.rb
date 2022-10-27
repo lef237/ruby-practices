@@ -2,14 +2,14 @@
 
 require 'etc'
 
-class Format
-  def initialize(files, long_option)
+class LsFormat
+  def initialize(files, long_option_exist)
     @files = files
-    @long_option = long_option
+    @long_option_exist = long_option_exist
   end
 
   def render
-    if @long_option
+    if @long_option_exist
       long_format
     else
       normal_format

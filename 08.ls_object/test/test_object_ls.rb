@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'test/unit'
-require_relative '../lib/list'
+require_relative '../lib/ls_list'
 
 class TestObjectLs < Test::Unit::TestCase
   TARGET_PATHNAME = 'test/sample_files'
@@ -15,7 +15,7 @@ class TestObjectLs < Test::Unit::TestCase
       d       h          
     TEXT
     options = {}
-    list = List.new(options, TARGET_PATHNAME)
+    list = LsList.new(options, TARGET_PATHNAME)
     assert_equal expected, list.format_files
   end
 
@@ -28,7 +28,7 @@ class TestObjectLs < Test::Unit::TestCase
       f     a           
     TEXT
     options = { all: true, reverse: true }
-    list = List.new(options, TARGET_PATHNAME)
+    list = LsList.new(options, TARGET_PATHNAME)
     assert_equal expected, list.format_files
   end
 
@@ -47,7 +47,7 @@ class TestObjectLs < Test::Unit::TestCase
       drw-rw-rw- 2 lef237 lef237 4096 May 15 15:39 jjjj
     TEXT
     options = { long: true }
-    list = List.new(options, TARGET_PATHNAME)
+    list = LsList.new(options, TARGET_PATHNAME)
     assert_equal expected, list.format_files
   end
 end

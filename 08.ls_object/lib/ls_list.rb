@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'one_file'
-require_relative 'format'
+require_relative 'ls_file'
+require_relative 'ls_format'
 
-class List
+class LsList
   def initialize(options, pathname)
     @options = options
     @pathname = pathname
@@ -11,10 +11,10 @@ class List
 
   def format_files
     filenames = receive_filenames
-    files = filenames.map do |filename|
-      OneFile.new(filename, @pathname)
+    ls_files = filenames.map do |filename|
+      LsFile.new(filename, @pathname)
     end
-    formatted_files = Format.new(files, @options[:long])
+    formatted_files = LsFormat.new(files, @options[:long])
     formatted_files.render
   end
 
