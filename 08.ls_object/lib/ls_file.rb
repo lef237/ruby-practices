@@ -3,13 +3,14 @@
 require 'etc'
 
 class LsFile
-  attr_reader :filename, :pathname, :status, :symbolize_file_type, :mode, :permissions, :hardlink, :user_name, :group_name, :bytesize, :timestamp
+  attr_reader :filename, :pathname, :status, :blocks, :symbolized_file_type, :mode, :permissions, :hardlink, :user_name, :group_name, :bytesize, :timestamp
 
   def initialize(filename, pathname)
     @filename = filename
     @pathname = pathname
     @status = status
-    @symbolize_file_type = symbolize_file_type(@status.ftype)
+    @blocks = @status.blocks
+    @symbolized_file_type = symbolize_file_type(@status.ftype)
     @mode = @status.mode.to_s(8)[-3..]
     @permissions = permission(@mode[0]) + permission(@mode[1]) + permission(@mode[2])
     @hardlink = @status.nlink.to_s
@@ -18,6 +19,8 @@ class LsFile
     @bytesize = @status.size.to_s.rjust(4)
     @timestamp = @status.mtime.strftime('%b %e %H:%M')
   end
+
+  private
 
   def status
     File.stat("#{@pathname}/#{@filename}")

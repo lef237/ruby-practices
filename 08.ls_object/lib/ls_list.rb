@@ -14,8 +14,8 @@ class LsList
     ls_files = filenames.map do |filename|
       LsFile.new(filename, @pathname)
     end
-    formatted_files = LsFormat.new(files, @options[:long])
-    formatted_files.render
+    ls_formatted_files = LsFormat.new(ls_files, @options[:long])
+    ls_formatted_files.render
   end
 
   private
