@@ -26,30 +26,33 @@ class LsFile
     File.stat("#{@pathname}/#{@filename}")
   end
 
+  FILE_TYPE = {
+    'file' => '-',
+    'directory' => 'd',
+    'characterSpecial' => 'c',
+    'blockSpecial' => 'b',
+    'fifo' => 'p',
+    'link' => 'l',
+    'socket' => 's'
+  }
+
+  PERMISSION = {
+    '0' => '---',
+    '1' => '--x',
+    '2' => '-w-',
+    '3' => '-wx',
+    '4' => 'r--',
+    '5' => 'r-x',
+    '6' => 'rw-',
+    '7' => 'rwx'
+  }
 
   def symbolize_file_type(file_type)
-    {
-      'file' => '-',
-      'directory' => 'd',
-      'characterSpecial' => 'c',
-      'blockSpecial' => 'b',
-      'fifo' => 'p',
-      'link' => 'l',
-      'socket' => 's'
-    }[file_type]
+    FILE_TYPE[file_type]
   end
 
   def permission(mode_number)
-    {
-      '0' => '---',
-      '1' => '--x',
-      '2' => '-w-',
-      '3' => '-wx',
-      '4' => 'r--',
-      '5' => 'r-x',
-      '6' => 'rw-',
-      '7' => 'rwx'
-    }[mode_number]
+    PERMISSION[mode_number]
   end
 
 end
