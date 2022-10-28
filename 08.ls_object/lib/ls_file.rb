@@ -8,7 +8,7 @@ class LsFile
   def initialize(filename, pathname)
     @filename = filename
     @pathname = pathname
-    @status = file_status
+    @status = File.stat("#{@pathname}/#{@filename}")
     @blocks = @status.blocks
     @symbolized_file_type = symbolize_file_type(@status.ftype)
     @mode = @status.mode.to_s(8)[-3..]
@@ -21,10 +21,6 @@ class LsFile
   end
 
   private
-
-  def file_status
-    File.stat("#{@pathname}/#{@filename}")
-  end
 
   FILE_TYPE = {
     'file' => '-',

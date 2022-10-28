@@ -19,7 +19,7 @@ class LsFormat
   private
 
   def long_format
-    files_blocks = @ls_files.sum { |file| file.blocks } / 2
+    files_blocks = @ls_files.sum(&:blocks) / 2
     render_sentence = "total #{files_blocks}\n"
     @ls_files.each do |file|
       symbolized_file_type = file.symbolized_file_type
