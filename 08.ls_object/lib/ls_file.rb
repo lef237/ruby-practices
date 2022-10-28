@@ -8,7 +8,7 @@ class LsFile
   def initialize(filename, pathname)
     @filename = filename
     @pathname = pathname
-    @status = status
+    @status = file_status
     @blocks = @status.blocks
     @symbolized_file_type = symbolize_file_type(@status.ftype)
     @mode = @status.mode.to_s(8)[-3..]
@@ -22,7 +22,7 @@ class LsFile
 
   private
 
-  def status
+  def file_status
     File.stat("#{@pathname}/#{@filename}")
   end
 
@@ -34,7 +34,7 @@ class LsFile
     'fifo' => 'p',
     'link' => 'l',
     'socket' => 's'
-  }
+  }.freeze
 
   PERMISSION = {
     '0' => '---',
@@ -45,7 +45,7 @@ class LsFile
     '5' => 'r-x',
     '6' => 'rw-',
     '7' => 'rwx'
-  }
+  }.freeze
 
   def symbolize_file_type(file_type)
     FILE_TYPE[file_type]
@@ -54,5 +54,4 @@ class LsFile
   def permission(mode_number)
     PERMISSION[mode_number]
   end
-
 end
