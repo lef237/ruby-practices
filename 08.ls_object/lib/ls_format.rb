@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'debug'
 class LsFormat
   def initialize(ls_files, long_option_exist)
     @ls_files = ls_files
