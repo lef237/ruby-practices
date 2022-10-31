@@ -20,15 +20,7 @@ class LsFormat
     files_blocks = @ls_files.sum(&:blocks) / 2
     render_sentence = "total #{files_blocks}\n"
     @ls_files.each do |file|
-      symbolized_file_type = file.symbolized_file_type
-      permissions = file.permissions
-      hardlink = file.hardlink
-      user_name = file.user_name
-      group_name = file.group_name
-      bytesize = file.bytesize
-      timestamp = file.timestamp
-      filename = file.filename
-      render_sentence += "#{symbolized_file_type}#{permissions} #{hardlink} #{user_name} #{group_name} #{bytesize} #{timestamp} #{filename}\n"
+      render_sentence += "#{file.symbolized_file_type}#{file.permissions} #{file.hardlink} #{file.user_name} #{file.group_name} #{file.bytesize} #{file.timestamp} #{file.filename}\n"
     end
     render_sentence
   end

@@ -26,7 +26,6 @@ class LsList
                 else
                   Dir.glob('*', base: @pathname)
                 end
-    filenames = filenames.reverse if @options[:reverse]
-    filenames
+    @options[:reverse] ? filenames.reverse : filenames
   end
 end
