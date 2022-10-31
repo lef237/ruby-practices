@@ -9,10 +9,10 @@ class TestObjectLs < Test::Unit::TestCase
 
   def test_object_ls
     expected = <<~TEXT
-      a       e    i     
-      bbbbbb  f    jjjj  
-      c       ggg        
-      d       h          
+      a       e       i       
+      bbbbbb  f       jjjj    
+      c       ggg             
+      d       h               
     TEXT
     options = {}
     list = LsList.new(options, TARGET_PATHNAME)
@@ -21,11 +21,11 @@ class TestObjectLs < Test::Unit::TestCase
 
   def test_object_ls_all_reverse
     expected = <<~TEXT
-      jjjj  e       .k  
-      i     d       ..  
-      h     c       .   
-      ggg   bbbbbb      
-      f     a           
+      jjjj    e       .k      
+      i       d       ..      
+      h       c       .       
+      ggg     bbbbbb          
+      f       a               
     TEXT
     options = { all: true, reverse: true }
     list = LsList.new(options, TARGET_PATHNAME)

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'debug'
 class LsFormat
   def initialize(ls_files, long_option_exist)
     @ls_files = ls_files
@@ -27,11 +28,12 @@ class LsFormat
 
   def normal_format
     filenames = @ls_files.map(&:filename)
+    calculated_column_width = calc_column_width(filenames)
     rearranged_filenames = rearrange_filenames(filenames)
     render_sentence = ''
     rearranged_filenames.each do |array|
-      array.each_with_index do |item, index|
-        render_sentence += item.ljust(calc_column_width(rearranged_filenames, index))
+      array.each do |item|
+        render_sentence += item.ljust(calculated_column_width)
       end
       render_sentence += "\n"
     end
@@ -46,7 +48,7 @@ class LsFormat
     filenames.each_slice(row).to_a.transpose
   end
 
-  def calc_column_width(rearranged_filenames, index)
-    rearranged_filenames.map { |array| array[index] }.max_by(&:length).length + 2
+  def calc_column_width(filenames)
+    filenames.max_by(&:length).length + 2
   end
 end
