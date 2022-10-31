@@ -27,11 +27,11 @@ class LsFormat
 
   def normal_format
     filenames = @ls_files.map(&:filename)
-    formatted_filenames = format_filenames(filenames)
+    rearranged_filenames = rearrange_filenames(filenames)
     render_sentence = ''
-    formatted_filenames.each do |array|
+    rearranged_filenames.each do |array|
       array.each_with_index do |item, index|
-        render_sentence += item.ljust(calc_column_width(formatted_filenames, index))
+        render_sentence += item.ljust(calc_column_width(rearranged_filenames, index))
       end
       render_sentence += "\n"
     end
@@ -40,13 +40,13 @@ class LsFormat
 
   COLUMN = 3
 
-  def format_filenames(filenames)
+  def rearrange_filenames(filenames)
     row = (filenames.size.to_f / COLUMN).ceil
     filenames << '' until (filenames.size % row).zero?
     filenames.each_slice(row).to_a.transpose
   end
 
-  def calc_column_width(formatted_filenames, index)
-    formatted_filenames.map { |array| array[index] }.max_by(&:length).length + 2
+  def calc_column_width(rearranged_filenames, index)
+    rearranged_filenames.map { |array| array[index] }.max_by(&:length).length + 2
   end
 end

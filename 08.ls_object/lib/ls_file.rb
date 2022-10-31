@@ -3,24 +3,51 @@
 require 'etc'
 
 class LsFile
-  attr_reader :filename, :pathname, :status, :blocks, :symbolized_file_type, :mode, :permissions, :hardlink, :user_name, :group_name, :bytesize, :timestamp
+  attr_reader :filename, :pathname
 
   def initialize(filename, pathname)
     @filename = filename
     @pathname = pathname
-    @status = File.stat("#{@pathname}/#{@filename}")
-    @blocks = @status.blocks
-    @symbolized_file_type = symbolize_file_type(@status.ftype)
-    @mode = @status.mode.to_s(8)[-3..]
-    @permissions = permission(@mode[0]) + permission(@mode[1]) + permission(@mode[2])
-    @hardlink = @status.nlink.to_s
-    @user_name = Etc.getpwuid(@status.uid).name
-    @group_name = Etc.getgrgid(@status.gid).name
-    @bytesize = @status.size.to_s.rjust(4)
-    @timestamp = @status.mtime.strftime('%b %e %H:%M')
+  end
+
+  def blocks
+    status.blocks
+  end
+
+  def symbolized_file_type
+    FILE_TYPE[status.ftype]
+  end
+
+  def permissions
+    mode = status.mode.to_s(8)[-3..]
+    permission(mode[0]) + permission(mode[1]) + permission(mode[2])
+  end
+
+  def hardlink
+    status.nlink.to_s
+  end
+
+  def user_name
+    Etc.getpwuid(status.uid).name
+  end
+
+  def group_name
+    Etc.getgrgid(status.gid).name
+  end
+
+  def bytesize
+    status.size.to_s.rjust(4)
+  end
+
+  def timestamp
+    status.mtime.strftime('%b %e %H:%M')
   end
 
   private
+
+  def status
+    File.stat("#{@pathname}/#{@filename}")
+  end
 
   FILE_TYPE = {
     'file' => '-',
@@ -42,10 +69,6 @@ class LsFile
     '6' => 'rw-',
     '7' => 'rwx'
   }.freeze
-
-  def symbolize_file_type(file_type)
-    FILE_TYPE[file_type]
-  end
 
   def permission(mode_number)
     PERMISSION[mode_number]
