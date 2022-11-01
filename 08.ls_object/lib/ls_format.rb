@@ -29,11 +29,11 @@ class LsFormat
   def normal_format
     filenames = @ls_files.map(&:filename)
     calculated_column_width = calc_column_width(filenames)
-    rearranged_filenames = rearrange_filenames(filenames)
+    built_filename_table = build_filename_table(filenames)
     render_sentence = ''
-    rearranged_filenames.each do |array|
-      array.each do |item|
-        render_sentence += item.ljust(calculated_column_width)
+    built_filename_table.each do |horizontal_line|
+      horizontal_line.each do |filename|
+        render_sentence += filename.ljust(calculated_column_width)
       end
       render_sentence += "\n"
     end
@@ -42,7 +42,7 @@ class LsFormat
 
   COLUMN = 3
 
-  def rearrange_filenames(filenames)
+  def build_filename_table(filenames)
     row = (filenames.size.to_f / COLUMN).ceil
     filenames << '' until (filenames.size % row).zero?
     filenames.each_slice(row).to_a.transpose
