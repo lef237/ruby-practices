@@ -21,7 +21,7 @@ class LsFormat
     render_sentence = "total #{files_blocks}\n"
     @ls_files.each do |file|
       render_sentence += "#{file.symbolized_file_type}#{file.permissions} #{file.hardlink} #{file.user_name} " \
-                         "#{file.group_name} #{file.bytesize} #{file.timestamp} #{file.filename}\n"
+                         "#{file.group_name} #{file.bytesize.to_s.rjust(4)} #{file.timestamp} #{file.filename}\n"
     end
     render_sentence
   end

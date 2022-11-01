@@ -19,12 +19,12 @@ class LsFile
   end
 
   def permissions
-    mode = status.mode.to_s(8)[-3..]
-    permission(mode[0]) + permission(mode[1]) + permission(mode[2])
+    modes = status.mode.to_s(8)[-3..]
+    PERMISSION[modes[0]] + PERMISSION[modes[1]] + PERMISSION[modes[2]]
   end
 
   def hardlink
-    status.nlink.to_s
+    status.nlink
   end
 
   def user_name
@@ -36,7 +36,7 @@ class LsFile
   end
 
   def bytesize
-    status.size.to_s.rjust(4)
+    status.size
   end
 
   def timestamp
@@ -69,8 +69,4 @@ class LsFile
     '6' => 'rw-',
     '7' => 'rwx'
   }.freeze
-
-  def permission(mode_number)
-    PERMISSION[mode_number]
-  end
 end
