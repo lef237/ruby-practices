@@ -3,13 +3,6 @@
 require 'etc'
 
 class LsFile
-  attr_reader :filename, :pathname
-
-  def initialize(filename, pathname)
-    @filename = filename
-    @pathname = pathname
-  end
-
   FILE_TYPE = {
     'file' => '-',
     'directory' => 'd',
@@ -30,6 +23,13 @@ class LsFile
     '6' => 'rw-',
     '7' => 'rwx'
   }.freeze
+
+  attr_reader :filename, :pathname
+
+  def initialize(filename, pathname)
+    @filename = filename
+    @pathname = pathname
+  end
 
   def blocks
     status.blocks

@@ -8,7 +8,7 @@ class TestObjectLs < Test::Unit::TestCase
   TARGET_PATHNAME = 'test/sample_files'
 
   def test_object_ls
-    expected = <<~TEXT
+    expected = <<~TEXT.chomp
       a       e       i       
       bbbbbb  f       jjjj    
       c       ggg             
@@ -20,7 +20,7 @@ class TestObjectLs < Test::Unit::TestCase
   end
 
   def test_object_ls_all_reverse
-    expected = <<~TEXT
+    expected = <<~TEXT.chomp
       jjjj    e       .k      
       i       d       ..      
       h       c       .       
