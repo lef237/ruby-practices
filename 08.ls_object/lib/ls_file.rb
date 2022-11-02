@@ -40,8 +40,8 @@ class LsFile
   end
 
   def permissions
-    modes = status.mode.to_s(8)[-3..]
-    PERMISSION[modes[0]] + PERMISSION[modes[1]] + PERMISSION[modes[2]]
+    digits = status.mode.to_s(8)[-3..].split('')
+    digits.map { |digit| PERMISSION[digit] }.join
   end
 
   def hardlink
