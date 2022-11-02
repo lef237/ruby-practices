@@ -10,6 +10,27 @@ class LsFile
     @pathname = pathname
   end
 
+  FILE_TYPE = {
+    'file' => '-',
+    'directory' => 'd',
+    'characterSpecial' => 'c',
+    'blockSpecial' => 'b',
+    'fifo' => 'p',
+    'link' => 'l',
+    'socket' => 's'
+  }.freeze
+
+  PERMISSION = {
+    '0' => '---',
+    '1' => '--x',
+    '2' => '-w-',
+    '3' => '-wx',
+    '4' => 'r--',
+    '5' => 'r-x',
+    '6' => 'rw-',
+    '7' => 'rwx'
+  }.freeze
+
   def blocks
     status.blocks
   end
@@ -39,8 +60,8 @@ class LsFile
     status.size
   end
 
-  def timestamp
-    status.mtime.strftime('%b %e %H:%M')
+  def mtime
+    status.mtime
   end
 
   private
@@ -48,25 +69,4 @@ class LsFile
   def status
     File.stat("#{@pathname}/#{@filename}")
   end
-
-  FILE_TYPE = {
-    'file' => '-',
-    'directory' => 'd',
-    'characterSpecial' => 'c',
-    'blockSpecial' => 'b',
-    'fifo' => 'p',
-    'link' => 'l',
-    'socket' => 's'
-  }.freeze
-
-  PERMISSION = {
-    '0' => '---',
-    '1' => '--x',
-    '2' => '-w-',
-    '3' => '-wx',
-    '4' => 'r--',
-    '5' => 'r-x',
-    '6' => 'rw-',
-    '7' => 'rwx'
-  }.freeze
 end

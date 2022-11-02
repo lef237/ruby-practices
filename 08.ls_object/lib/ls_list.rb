@@ -21,11 +21,7 @@ class LsList
   private
 
   def receive_filenames
-    filenames = if @options[:all]
-                  Dir.foreach(@pathname).to_a.sort
-                else
-                  Dir.glob('*', base: @pathname)
-                end
+    filenames = @options[:all] ? Dir.foreach(@pathname).to_a.sort : Dir.glob('*', base: @pathname)
     @options[:reverse] ? filenames.reverse : filenames
   end
 end
