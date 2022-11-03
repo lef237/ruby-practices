@@ -1,12 +1,24 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-def receive_files_in_current_directory
-  files = []
-  Dir.foreach('.') do |item|
-    next if ['.', '..'].include?(item)
+require 'optparse'
 
-    files << item
+def receive_options
+  option_parser = OptionParser.new
+  options = {}
+  option_parser.on('-a') { |v| options[:all] = v }
+  option_parser.parse!(ARGV)
+  options
+end
+
+def receive_files_in_current_directory(options)
+  if options[:receive_all_files]
+    files = []
+    Dir.foreach('.') do |item|
+      files << item
+    end
+  else
+    files = Dir.glob('*')
   end
   files
 end
@@ -29,7 +41,8 @@ def print_files(files)
   end
 end
 
-files = receive_files_in_current_directory
+options = receive_options
+files = receive_files_in_current_directory(receive_all_files: options[:all])
 COLUMN = 3
 ROW = (files.size.to_f / COLUMN).ceil
 formatted_files = format_files(files)
